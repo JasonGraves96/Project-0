@@ -1,7 +1,5 @@
 package src.main.java;
 
-import java.util.Random;
-
 public class Account {
     private String name;
     private String email;
@@ -9,16 +7,25 @@ public class Account {
     private int accountNumber;
     private float balance;
 
-    public Account(String name, String email, String password) {
+    public Account(String name, String email, String password, int accountNumber) {
         this.name = name;
         this.email = email;
         this.password = password;
-        Random rand = new Random();
-        this.accountNumber = rand.nextInt();
+        this.accountNumber = accountNumber;
         this.balance = 0;
 
     }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", accountNumber=" + accountNumber +
+                ", balance=" + balance +
+                '}';
+    }
 
     public String getEmail() {
         return email;

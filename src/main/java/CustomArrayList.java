@@ -1,5 +1,7 @@
 package src.main.java;
 
+import java.util.Arrays;
+
 /**
  * A fairly simple arraylist implementation extending custom list interface.
  * Default size is 2, grows by size * 2 when needed.
@@ -117,7 +119,15 @@ public class CustomArrayList<E> implements CustomListInterface<E> {
     @Override
     public void remove(int index) {
         //Implement this method
-        this.array[index]=null;
+        //this is fucked come back to it
+        int numberOfNulls = 0;
+        this.array[index] = null;
+        for(int i=0;i<size;i++)
+            if(this.array[i]== null)
+                numberOfNulls++;
+                else
+                    this.array[i-numberOfNulls] = (this.array[i]);
+        size--;
     }
 
     /**
