@@ -83,7 +83,7 @@ public class MainEntryPoint {
     }
 
     public static boolean signIn(){
-// ask for email.. check if it is an object email address.. ask for pin.. check if it is the right pin
+// ask for email. check if it is an object email address.. ask for pin.. check if it is the right pin
 
         return false;
     }

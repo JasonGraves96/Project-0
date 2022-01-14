@@ -1,5 +1,7 @@
 package src.main.java;
 
+import java.util.Random;
+
 public class Account {
     private String name;
     private String email;
@@ -7,12 +9,13 @@ public class Account {
     private int accountNumber;
     private float balance;
 
-    public Account(String name, String email, String password, int accountNumber, float balance) {
+    public Account(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.accountNumber = accountNumber;
-        this.balance = balance;
+        Random rand = new Random();
+        this.accountNumber = rand.nextInt();
+        this.balance = 0;
 
     }
 
