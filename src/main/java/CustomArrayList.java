@@ -1,4 +1,3 @@
-package src.main.java;
 
 import java.util.Arrays;
 
@@ -107,7 +106,7 @@ public class CustomArrayList<E> implements CustomListInterface<E> {
     public int contains(Object o) {
         //Implement this method
         for(int i=0;i<this.size;i++)
-            if((o.equals(array[i]))==true)
+            if((o.equals(array[i])))
                 return i;
         return -1;
     }

@@ -1,12 +1,14 @@
-package src.main.java;
-
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AccountCreator {
-    public static Account signUp() {
+    public static Account signUp(Connection TheLegendOfZeldaALinkToThePast) {
         //defines the fields
         Scanner scnr = new Scanner(System.in);
         String name = null;
@@ -31,17 +33,34 @@ public class AccountCreator {
 
         //asks for the email. checks the format to see if it conforms to xxx@xxx.xxx
         System.out.println("What is your email?");
-       do{
-           email = scnr.next();
-           boolean checks = false;
-            if(emailChecker(email)==false)
-                System.out.println("Email invalid. Try again.");
-       }while(emailChecker(email)==false);
+        String result=null;
+        boolean checks = false;
+        do{
+           email = scnr.nextLine();
+           try {
+               Statement emailLookup = TheLegendOfZeldaALinkToThePast.createStatement();
+                ResultSet rs = emailLookup.executeQuery("SELECT *\n" +
+                        "FROM test_purposes_only.Accounts\n" +
+                        "WHERE Email = '"+email+"';\n");
+                    if(rs.next())
+                        result = rs.getString("Email");
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+            if(emailChecker(email)==false){
+                System.out.println("Email invalid. Please try again.");
+                checks = false;
+            }else if(email.equals(result)==true) {
+                System.out.println("There is already an account with that email.\nPlease Try again.");
+                checks = false;
+            }else
+                checks = true;
+        }while(checks == false);
 
 
         //asks for a password. scans the line twice because it skips otherwise
         System.out.println("What will your password be? Input anything, just make sure you remember it");
-        password = scnr.nextLine();
+
         password = scnr.nextLine();
 
 
@@ -49,10 +68,23 @@ public class AccountCreator {
         accountNumber = accountNumberGenerator();
 
 
-        //creates the Account object
+        //creates the Account object. NOTE I put this in before the database.. It is sort of redundant now
         Account newAccount = new Account(name, email, password, accountNumber);
         System.out.println("Your account has been created.\nWelcome to Revature Bank!\n");
-        MainEntryPoint.pauser(300);
+        Art.pauser(300);
+
+        //this puts the info just entered into our database
+        try {
+            Statement TheSQLStatement = TheLegendOfZeldaALinkToThePast.createStatement();
+            String TheSQLQuery = "INSERT INTO test_purposes_only.Accounts\n" +
+                    "(id, `Name`, Balance, Email, Password)\n" +
+                    "VALUES("+newAccount.getAccountNumber()+", '"+newAccount.getName()+"'" +
+                    ", 0, '"+newAccount.getEmail()+"', '"+newAccount.getPassword()+"');\n";
+
+            TheSQLStatement.executeUpdate(TheSQLQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return newAccount;
     }
@@ -68,14 +100,14 @@ public class AccountCreator {
     }
 
     public static boolean emailChecker(String email){
-        Pattern daMail = Pattern.compile(".+@.+\\.[a-z]+");
+        Pattern daMail = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]");//email format checker is characters + @symbol + characters + . + characters
         Matcher match = daMail.matcher(email);
         boolean matchCheck = match.matches();
         return matchCheck;
     }
     public static int accountNumberGenerator(){
         Random rand = new Random();
-        int result = rand.nextInt();
+        int result = Math.abs(rand.nextInt());
         //come back to this and have it check your array for matching values
         return result;
     }
