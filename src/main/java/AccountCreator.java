@@ -91,24 +91,23 @@ public class AccountCreator {
 
     public static String nameCleaner(String name) {
         String[] nameArray;
-        nameArray = name.split(" ", 2);
+        nameArray = name.split(" ", 2);//searches for the space
         String first = nameArray[0];
-        String last  = nameArray[1];
-        first = first.replaceAll("[^a-zA-Z]+", "");
+        String last  = nameArray[1];//this first last bit is a relic from when I was making objects instead up updating a database. Switch from first and last fields to just one name field
+        first = first.replaceAll("[^a-zA-Z]+", "");//removes special characters from both first and last
         last = last.replaceAll("[^a-zA-Z]+", "");
         return first + " " + last;
     }
 
     public static boolean emailChecker(String email){
-        Pattern daMail = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]");//email format checker is characters + @symbol + characters + . + characters
+        Pattern daMail = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");//email format checker is characters + @symbol + characters + . + characters
         Matcher match = daMail.matcher(email);
-        boolean matchCheck = match.matches();
+        boolean matchCheck = match.matches();//gets a true/false depending if the user's string matches the pattern outlined above
         return matchCheck;
     }
     public static int accountNumberGenerator(){
-        Random rand = new Random();
-        int result = Math.abs(rand.nextInt());
-        //come back to this and have it check your array for matching values
+        Random rand = new Random();//randomly assigns a HUGE number for account id purposes
+        int result = Math.abs(rand.nextInt());//only want positive numebrs for this
         return result;
     }
 }

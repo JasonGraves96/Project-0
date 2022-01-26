@@ -1,5 +1,8 @@
 
-
+//This was made mostly irrelevant after implementing all the JDBC and SQL stuff
+//Simple POJO
+//Originally this program created Account objects after registration
+//It's still here out of fear of breaking my program without it and running out of time to fix
 public class Account {
     private String name;
     private String email;

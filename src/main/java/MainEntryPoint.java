@@ -2,15 +2,7 @@ import java.sql.Connection;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-//project 0 To Do
-
-//tuesday to do
-//view account information
-//transfer money
-//2 DECIMALS!!!!!
-//check math
-//review project details to double check you're not missing anything
-
+//program start
 public class MainEntryPoint {
     public static void main(String[] args){
         //defining variables

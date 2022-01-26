@@ -47,16 +47,15 @@ public class DatabaseConnectionManager {
  THIS METHOD NO LONGER DOES ANYTHING
  WAS USED TO TEST
  */
-    }
+    }//this is never used
 
-
-     static Connection startConnection(){
+     static Connection startConnection(){//main connection method
          Connection TheLegendOfZeldaALinkToThePast = null;
-         File myFile = new File("connectionString.properties");
+         File myFile = new File("connectionString.properties");//reads the .properties file that will not be uploaded to github for security reasons
          try {
-             Scanner scnr = new Scanner(myFile);
+             Scanner scnr = new Scanner(myFile);//bounds a scanner to the file
              String connectionInfo = scnr.next();
-             scnr.next();
+             scnr.next();//these are required to bypass spaces
              String userName = scnr.next();
              scnr.next();
              String password = scnr.next();
@@ -64,8 +63,9 @@ public class DatabaseConnectionManager {
          } catch (FileNotFoundException | SQLException e) {
              e.printStackTrace();
          }
-         
+
          return TheLegendOfZeldaALinkToThePast;
-    }
+    }//end startConnection
+    //this should only be run 1 time, the connection object named 'TheLegendOfZeldaALinkToThePast is passed directly to methods that use it
 }
 

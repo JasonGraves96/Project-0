@@ -1,6 +1,6 @@
 
 import java.util.Arrays;
-
+//I think this is all filled out correctly. Though it may not be, the program doesn't use arraylist extensively and only makes use of the .get and .add methods
 /**
  * A fairly simple arraylist implementation extending custom list interface.
  * Default size is 2, grows by size * 2 when needed.
